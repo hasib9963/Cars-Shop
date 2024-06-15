@@ -1,0 +1,72 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<div class="d-flex flex-wrap px-5 pt-3 align-items-center">
+  <div class="col-6">
+    <h3>Welcome to The Car Shop</h3>
+    <p>
+      Hi there!<br />
+      Welcome to the Car Shop!<br />
+      We are glad that you are Visiting Our Website. We will be happy to help
+      you to Buy Brand new Car. As a thank you for Chosing us, We would like to
+      give you a gift. Get Discount to every purchase of car now! You will find
+      there So many World class Brand
+    </p>
+  </div>
+  <div class="col-6">
+    <img src="{% static 'carshop.jpg' %}" />
+  </div>
+</div>
+
+<div class="d-flex flex-wrap p-4">
+  <div class="col-12 bg-white p-3">
+    <h5>
+      <a href="{% url 'homepage' %}" class="text-decoration-none">All Brands</a>
+    </h5>
+    <div class="d-flex flex-wrap pr-3 gap-4">
+      {% for ban in brand %}
+      <div class="mr-3 mb-2">
+        <button
+          class="btn btn-primary btn-sm text-white"
+          name="brand"
+          id="{{ban.id}}"
+        />
+        <label class="form-check-label" for="{{ban.id}}">
+          <a
+            href="{% url 'brand_wise_car' ban.slug %}"
+            class="text-decoration-none text-dark"
+            >{{ban.brand_name}}</a
+          >
+        </label>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-12 p-3 justify-content-center">
+    <h5>Total Car found {{data | length}}</h5>
+    <div class="d-flex flex-wrap pt-5">
+      {% for car in data %}
+      <div class="col-sm-3">
+        <div class="card m-2 content">
+          <div class="card-body co">
+            <img src="{{car.images.url}}" class="card-img-top" alt="..." />
+            <h3 class="card-title">{{car.car_title}}</h3>
+            <h5 class="card-text">{{car.price}}</h5>
+            <p>
+              Brand :
+              <button class="btn btn-primary btn-sm m-2" disabled>
+                {{car.brand.brand_name}}
+              </button>
+            </p>
+            <h6>
+              <a href="{% url 'detail_car' car.id %}"
+                class="text-decoration-none text-dark">
+                View Details </a>
+            </h6>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

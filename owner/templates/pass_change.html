@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{%  load crispy_forms_tags %}
+{% block content %}
+
+
+<form style="width:50% ; margin : auto" method="post">
+    <h3>Change Your Password From Here</h3>
+    {% csrf_token %}
+    <!-- {{form | crispy }} -->
+    {% for fm in form%} 
+    {{fm.label_tag}} 
+    {{fm}} 
+    {{fm.errors|striptags}} 
+    {% endfor %}
+    <br>
+
+<button class="btn btn-warning mb-5">Submit</button>
+</form>
+
+{% endblock %}
